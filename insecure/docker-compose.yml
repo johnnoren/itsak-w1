@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+
+  chat-db:
+    image: mysql/mysql-server:8.0.25
+    container_name: chat-db
+    env_file:
+     - db.env
+    ports:
+     - "3306:3306"
