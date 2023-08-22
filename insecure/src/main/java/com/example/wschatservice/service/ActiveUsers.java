@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Component
 public class ActiveUsers {
@@ -32,5 +31,9 @@ public class ActiveUsers {
 
     public void keepAlive(String username) {
         activeUsers.put(username, LocalDateTime.now());
+    }
+
+    public void remove(String username) {
+        activeUsers.remove(username);
     }
 }
