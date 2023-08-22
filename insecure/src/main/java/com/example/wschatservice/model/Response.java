@@ -1,20 +1,25 @@
 package com.example.wschatservice.model;
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 
-@NoArgsConstructor
 @Data
-public class Message {
+@NoArgsConstructor
+
+public class Response {
 
     private String message;
     private String sender;
+    private List<String> activeUsers;
 
-    public Message(String message, String sender) {
+    public Response(String message, String sender, List<String> activeUsers) {
         this.message = message;
         this.sender = sender;
+        this.activeUsers = activeUsers;
     }
+
 
 
 }
