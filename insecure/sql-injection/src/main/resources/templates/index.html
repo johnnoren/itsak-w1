@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemliga hemsidan</title>
+</head>
+<body id="form-body">
+
+<!-- List-->
+<div class="container" id="form-container">
+    <div id="form" class="form">
+
+
+        <div class="header" id="form-header">
+            <h2>Välkommen!</h2>
+        </div>
+        <br>
+        <div>
+            <h3 th:if="${currentRole} != 'ej inloggad'">
+                Logged in as: <span th:text="${currentRole}"></span>
+            </h3>
+        </div>
+        <br>
+
+        <form th:if="${currentRole} != 'ej inloggad'" class="form" action="/sql-injection/logout" method="post">
+            <input name="_csrf" type="hidden" th:value="${_csrf.token}" />
+            <input id="login" type="submit" value="Log out">
+        </form>
+
+        <form th:if="${currentRole} == 'ej inloggad'" class="form" action="/sql-injection/login" method="post">
+            <div class="form-control">
+                <p th:if="${loginError}" class="error">Wrong user or password</p>
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" name="username"><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password"><br>
+                <input name="_csrf" type="hidden" th:value="${_csrf.token}" />
+                <input id="logout" type="submit" value="Log in">
+            </div>
+        </form>
+
+
+    </div>
+</div>
+
+
+</body>
+</html>
