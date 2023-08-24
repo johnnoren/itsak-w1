@@ -1,5 +1,8 @@
 package com.example.sql_injection.controller;
 
+import com.example.sql_injection.repository.UserRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,16 @@ import java.security.Principal;
 public class ThymeController {
 
     private final RestTemplate restTemplate;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Operation(summary = "Get all users")
+    @RequestMapping("/users")
+    public String getAllUsers(Model model) {
+        model.addAttribute("userList", userRepository.findAll());
+        return "users.html";
+    }
 
     public ThymeController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
