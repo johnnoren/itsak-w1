@@ -188,7 +188,7 @@ h3 {
 
 .table-style {
     width: 100%;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 }
 
 tr:nth-child(even) {
