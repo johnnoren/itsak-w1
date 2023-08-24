@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+¢@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
 
 :root {
     --primaryColor: #c4ad97;
@@ -188,7 +188,7 @@ h3 {
 
 .table-style {
     width: 100%;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 }
 
 tr:nth-child(even) {
