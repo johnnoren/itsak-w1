@@ -23,9 +23,6 @@ public class PublicController {
 
     @PostMapping("/public/register")
     public String addUser(@RequestBody User user) {
-        //BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-        //String encryptedPwd = bcrypt.encode(user.getPassword());
-        //user.setPassword(encryptedPwd);
         User savedUser = pRepo.save(user);
         return savedUser.getUsername()+" added to database successfully";
     }
