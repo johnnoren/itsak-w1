@@ -12,6 +12,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -20,40 +22,42 @@ import org.springframework.security.web.SecurityFilterChain;
 @ComponentScan("com.example.sql_injection")
 public class WebSecurityConfig {
 
-	@Autowired
-	private InsecureAuthenticationProvider authProvider;
 
-	@Bean
-	public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-		AuthenticationManagerBuilder authenticationManagerBuilder =
-				http.getSharedObject(AuthenticationManagerBuilder.class);
-		authenticationManagerBuilder.authenticationProvider(authProvider);
-		return authenticationManagerBuilder.build();
-	}
+    @Autowired
+    private InsecureAuthenticationProvider authProvider;
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests
-					.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-					.requestMatchers("/", "/index", "/assets/**", "/login-error", "/login").permitAll()
-					.requestMatchers("/**").hasRole("USER"))
+    @Bean
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.authenticationProvider(authProvider);
+        return authenticationManagerBuilder.build();
+    }
 
-			.formLogin((formLogin) -> formLogin
-					.loginPage("/login")
-					.failureUrl("/login-error")
-			)
-			.logout((logout) ->
-					logout.deleteCookies("remove")
-						  .invalidateHttpSession(false)
-						  .logoutUrl("/logout")
-						  .logoutSuccessUrl("/index")
-			);
 
-		return http.build();
-	}
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests((requests) -> requests
+                        .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
+                        .requestMatchers("/", "/index", "/admin/**", "/public/**", "/assets/**", "/login-error", "/login").permitAll()
+                        .anyRequest().permitAll())
 
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new CustomUserDetailsService();
-	}
+                .formLogin((formLogin) -> formLogin
+                        .loginPage("/login")
+                        .failureUrl("/login-error")
+                )
+                .logout((logout) ->
+                        logout.deleteCookies("remove")
+                                .invalidateHttpSession(false)
+                                .logoutUrl("/logout")
+                                .logoutSuccessUrl("/index")
+                );
+
+        return http.build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new CustomUserDetailsService();
+    }
 }

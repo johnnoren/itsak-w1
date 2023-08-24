@@ -30,7 +30,7 @@ public class SqlInjectionApplication {
 	public CommandLineRunner initDb(UserRepository UserRepository) {
 		return (args) -> {
 
-			var newUsers = List.of(new User("admin", "1234"));
+			var newUsers = List.of(new User("admin", "1234", "ADMIN"));
 
 			UserRepository.saveAll(newUsers);
 		};
