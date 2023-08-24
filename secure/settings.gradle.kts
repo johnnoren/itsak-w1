@@ -9,3 +9,4 @@
  */
 
 rootProject.name = "secure"
+include("sql-injection")
