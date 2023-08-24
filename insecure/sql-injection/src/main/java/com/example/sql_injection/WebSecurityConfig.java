@@ -39,7 +39,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-                        .requestMatchers("/", "/index", "/admin/**", "/public/**", "/assets/**", "/login-error", "/login").permitAll()
+                        .requestMatchers("/", "/index", "/admin/**", "/public/**", "/assets/**", "/login-error",
+								"/login", "/users").permitAll()
                         .anyRequest().permitAll())
 
                 .formLogin((formLogin) -> formLogin
