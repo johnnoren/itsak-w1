@@ -27,12 +27,12 @@
         </div>
         <br>
 
-        <form th:if="${currentRole} != 'ej inloggad'" class="form" action="/sql-injection/logout" method="post">
+        <form th:if="${currentRole} != 'ej inloggad'" class="form" action="/secure/logout" method="post">
             <input name="_csrf" type="hidden" th:value="${_csrf.token}" />
             <input id="login" type="submit" value="Log out">
         </form>
 
-        <form th:if="${currentRole} == 'ej inloggad'" class="form" action="/sql-injection/login" method="post">
+        <form th:if="${currentRole} == 'ej inloggad'" class="form" action="/secure/login" method="post">
             <div class="form-control">
                 <p th:if="${loginError}" class="error">Wrong user or password</p>
                 <label for="username">Username:</label><br>

@@ -1,0 +1,74 @@
+version: "3.9"
+
+services:
+
+  # Reverse proxy
+  nginx:
+    platform: linux/amd64
+    image: nginx
+    container_name: local_nginx
+    volumes:
+      - ./reverse_proxy.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8080:8080"
+
+  # Databases
+  secure-db:
+    image: mysql/mysql-server:8.0.25
+    container_name: secure-db
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 45s
+      interval: 2s
+      retries: 30
+    env_file:
+      - sql-injection.env
+    ports:
+      - "3306"
+
+  insecure-db:
+     image: mysql/mysql-server:8.0.25
+     container_name: insecure-db
+     healthcheck:
+       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+       timeout: 45s
+       interval: 2s
+       retries: 30
+     env_file:
+       - sql-injection.env
+     ports:
+       - "3306"
+
+# Java services
+  insecure-service:
+    build:
+      context: ./insecure/sql-injection
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080"
+    depends_on:
+      insecure-db:
+        condition: service_healthy
+    container_name: insecure-service
+    environment:
+      MYSQL_HOST: insecure-db
+    env_file:
+      - sql-injection.env
+
+  secure-service:
+    build:
+      context: ./secure/sql-injection
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080"
+    depends_on:
+      secure-db:
+        condition: service_healthy
+    container_name: secure-service
+    environment:
+      MYSQL_HOST: secure-db
+    env_file:
+      - sql-injection.env
+
