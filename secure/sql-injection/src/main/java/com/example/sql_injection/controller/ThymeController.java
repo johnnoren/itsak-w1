@@ -20,8 +20,9 @@ public class ThymeController {
 
     @Operation(summary = "Get all users")
     @RequestMapping("/users")
-    public String getAllUsers(Model model) {
+    public String getAllUsers(Model model, Principal principal) {
         model.addAttribute("userList", userRepository.findAll());
+        model.addAttribute("currentRole", getCurrentRole(principal));
         return "users.html";
     }
 
