@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "6588a2bc-24a3-42f2-b093-c4ad5d4f0e0e",
+		"name": "ITSAK uppgift 1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26963429"
+	},
+	"item": [
+		{
+			"name": "Insecure",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/insecure/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"insecure",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Thomas2\",\r\n    \"password\": \"testpw\",\r\n    \"role\": \"USER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/public/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"public",
+								"register"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Thomas",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "testpw",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "ADMIN",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/insecure/admin/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"insecure",
+								"admin",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Secure",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/secure/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"secure",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register user Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "DO7sAJKd4an_rdu-nmxy7t4Ro7-1n8-HtNTYNMf10mxAOov_b4veZPSl0p_SzL6PpkFGjb0njoeN-quqg7fqBveX4lUhXLmd",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Thomas2\",\r\n    \"password\": \"testpw\",\r\n    \"role\": \"USER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/secure/public/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"secure",
+								"public",
+								"register"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Thomas",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "testpw",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "ADMIN",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all users Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/insecure/admin/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"insecure",
+								"admin",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
